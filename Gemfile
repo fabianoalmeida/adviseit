@@ -12,6 +12,8 @@ gem 'uglifier'
 gem 'jquery-rails'
 gem 'ruby-debug19'
 
+gem 'capistrano'
+
 group :development, :test do
   gem 'rspec-rails', '~> 2.4'
   gem 'autotest'
