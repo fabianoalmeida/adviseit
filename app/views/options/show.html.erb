@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Value:</b>
+  <%= @option.value %>
+</p>
+
+<p>
+  <b>Has text field:</b>
+  <%= @option.has_text_field %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @option.status.value %>
+</p>
+
+
+<%= link_to 'Edit', edit_option_path(@option) %> |
+<%= link_to 'Back', options_path %>

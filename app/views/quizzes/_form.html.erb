@@ -1,0 +1,100 @@
+<%= form_for(@quiz) do |f| %>
+  <% if @quiz.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@quiz.errors.count, "error") %> prohibited this quiz from being saved:</h2>
+
+      <ul>
+      <% @quiz.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.hidden_field :measurable_type, :value => nil %>
+  <div class="field">
+    <%= f.label :value %><br />
+    <%= f.text_field :value, :maxlength => 20, :size => 20 %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description, :maxlength => 100, :size => 30 %>
+  </div>
+  <div class="field" id="companies">
+    <%= f.label :company %><br />
+    <%= f.collection_select( :measurable, Company.all, :id, :value, { :prompt => true } ) %>
+  </div>
+  <div class="field" id="departments">
+    <%= f.label :department %><br />
+    <%= f.collection_select( :measurable, [], :id, :value, { :prompt => true }, { :disabled => "disabled" } ) %>
+  </div>
+  <div class="field" id="cost_centers">
+    <%= f.label :cost_center %><br />
+    <%= f.collection_select( :measurable, [], :id, :value, { :prompt => true }, { :disabled => "disabled" } ) %>
+  </div>
+  <div class="field">
+    <%= f.label :subjects %>
+    <% Subject.actives.each do |subject| %>
+      <br /><%= check_box_tag "quiz[subject_ids][]", subject.id, @quiz.subjects.include?(subject) %>
+      <%= subject.value %>
+    <% end %>  
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <% Status.all.each do |status| %>
+      <%= f.radio_button( :status_id, status.id ) %> <%= status.value %>
+    <% end %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= javascript_include_tag 'jquery-1.5.2.min.js' %>
+<script type="text/javascript" charset="utf-8">
+  jQuery('#companies select#quiz_measurable').change(function() {
+      jQuery('#departments #quiz_measurable').empty();
+      jQuery('#departments #quiz_measurable').append("<option value=''>Please select</option>");
+      if (this.value != '') {
+        jQuery('#quiz_measurable_type').val("Company");
+        url   = "/companies/" + this.value + "/departments"
+        jQuery.ajax({
+          url      : url,
+          type     : 'get',
+          dataType : 'json',
+          success  : function(data){
+              jQuery('#departments #quiz_measurable').attr("disabled", "");
+              jQuery.each(data, function(index, dpto) {
+                  jQuery('#departments #quiz_measurable').append("<option value='" + dpto.id + "'>" + dpto.value + "</option>");
+                });
+            }
+        });
+      } else {
+        jQuery('#quiz_measurable_type').val("");
+        jQuery('#departments #quiz_measurable').attr("disabled", "disabled");
+      }
+  });
+
+  jQuery('#departments select#quiz_measurable').change(function() {
+      jQuery('#cost_centers #quiz_measurable').empty();
+      jQuery('#cost_centers #quiz_measurable').append("<option value=''>Please select</option>");
+      if (this.value != '') {
+        jQuery('#quiz_measurable_type').val("Department");
+        url   = "/departments/" + this.value + "/cost_centers"
+        jQuery.ajax({
+          url      : url,
+          type     : 'get',
+          dataType : 'json',
+          success  : function(data){
+              jQuery('#cost_centers #quiz_measurable').attr("disabled", "");
+              jQuery.each(data, function(index, dpto) {
+                  jQuery('#cost_centers #quiz_measurable').append("<option value='" + dpto.id + "'>" + dpto.value + "</option>");
+                });
+            }
+        });
+      } else {
+        jQuery('#quiz_measurable_type').val("");
+        jQuery('#cost_centers #quiz_measurable').attr("disabled", "disabled");
+      }
+  });
+</script>
+

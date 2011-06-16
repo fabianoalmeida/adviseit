@@ -1,0 +1,38 @@
+<%= form_for(@form) do |f| %>
+  <% if @form.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@form.errors.count, "error") %> prohibited this form from being saved:</h2>
+
+      <ul>
+      <% @form.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :value %><br />
+    <%= f.text_field :value, :maxlength => 50, :size => 30 %>
+  </div>
+  <div class="field">
+    <%= f.label :multiple %><br />
+    <%= f.check_box :multiple %>
+  </div>
+  <div class="field">
+    <%= f.label :options %>
+    <% Option.actives.each do |option| %>
+      <br /><%= check_box_tag "form[option_ids][]", option.id, @form.options.include?(option) %>
+      <%= option.value %>
+    <% end %>  
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <% Status.all.each do |status| %>
+      <%= f.radio_button( :status_id, status.id ) %> <%= status.value %>
+    <% end %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

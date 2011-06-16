@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Value:</b>
+  <%= @quiz.value %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @quiz.description %>
+</p>
+
+<p>
+  <b>Subjects:</b><br />
+  <% @quiz.subjects.each do |subject| %>
+    <%= subject.value %><br />
+  <% end %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @quiz.status.value %>
+</p>
+
+<%= link_to 'Edit', edit_quiz_path(@quiz) %> |
+<%= link_to 'Back', quizzes_path %>

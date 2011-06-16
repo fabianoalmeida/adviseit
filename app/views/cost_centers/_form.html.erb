@@ -1,0 +1,25 @@
+<%= form_for(@cost_center) do |f| %>
+  <% if @cost_center.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cost_center.errors.count, "error") %> prohibited this cost_center from being saved:</h2>
+
+      <ul>
+      <% @cost_center.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :value %><br />
+    <%= f.text_field :value %>
+  </div>
+  <div class="field">
+    <%= f.label :department %><br />
+    <%= f.collection_select( :department_id, Department.all, :id, :value, { :prompt => true } ) %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Value:</b>
+  <%= @subject.value %>
+</p>
+
+<p>
+  <b>Questions:</b><br />
+  <% @subject.questions.each do |question| %>
+    <%= question.value %><br />
+  <% end %>
+</p>
+
+
+<p>
+  <b>Status:</b>
+  <%= @subject.status.value %>
+</p>
+
+
+<%= link_to 'Edit', edit_subject_path(@subject) %> |
+<%= link_to 'Back', subjects_path %>

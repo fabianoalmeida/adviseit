@@ -1,0 +1,29 @@
+<h1>Listing quizzes</h1>
+
+<table>
+  <tr>
+    <th>Value</th>
+    <th>Description</th>
+    <th>Status</th>
+    <th>Type</th>
+    <th>Measurable</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @quizzes.each do |quiz| %>
+  <tr>
+    <td><%= quiz.value %></td>
+    <td><%= quiz.description %></td>
+    <td><%= quiz.status.value %></td>
+    <td><%= quiz.measurable_type %></td>
+    <td><%= quiz.measurable.value %></td>
+    <td><%= link_to 'Show', quiz %></td>
+    <td><%= link_to 'Edit', edit_quiz_path(quiz) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Quiz', new_quiz_path %>

@@ -1,0 +1,16 @@
+<h1>Questionnaires</h1>
+
+<table>
+  <tr>
+    <th>Quiz</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @quizzes.each do |quiz| %>
+  <tr>
+    <td><%= quiz.value %></td>
+    <td><%= link_to 'Show', quiz_respond_path(quiz) %></td>
+  </tr>
+<% end %>
+</table>

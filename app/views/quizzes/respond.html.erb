@@ -1,0 +1,25 @@
+<div class="field">
+  <%= @quiz.value %> <br />
+  <% @quiz.subjects.each do |subject| %>
+    <%= subject.value %> <br />
+    <% subject.questions.each do |question| %>
+      <%= form_for(Answer.new) do |f| %>
+        <%= question.value %> <br />
+        <% question.form.options.each do |option| %>
+          <% if question.form.single %>
+            <%= f.radio_button( :option_id, option.id ) %>
+          <% else %>
+            <%= check_box_tag "answer[options][]", option.id %>
+          <% end %>
+          <%= option.value %>
+          <% if option.has_text_field %>
+            <%= f.text_field :value, :maxlength => 80, :size => 30 %>
+          <% end %> <br />
+        <% end %>
+        <div class="actions">
+          <%= f.submit %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

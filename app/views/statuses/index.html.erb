@@ -1,0 +1,21 @@
+<h1>Listing statuses</h1>
+
+<table>
+  <tr>
+    <th>Value</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @statuses.each do |status| %>
+  <tr>
+    <td><%= status.value %></td>
+    <td><%= link_to 'Show', status %></td>
+    <td><%= link_to 'Edit', edit_status_path(status) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Status', new_status_path %>

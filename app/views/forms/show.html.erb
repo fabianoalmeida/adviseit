@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Value:</b>
+  <%= @form.value %>
+</p>
+
+<p>
+  <b>Multiple:</b>
+  <%= @form.multiple %>
+</p>
+
+<p>
+  <b>Options:</b><br />
+  <% @form.options.each do |option| %>
+    <%= option.value %><br />
+  <% end %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @form.status.value %>
+</p>
+
+<%= link_to 'Edit', edit_form_path(@form) %> |
+<%= link_to 'Back', forms_path %>
